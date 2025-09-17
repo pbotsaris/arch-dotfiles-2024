@@ -1,0 +1,4 @@
+#!/user/bin/env bash
+
+export XCOMPOSEFILE=~/.XCompose
+setxkbmap us -option 'compose:rwin'

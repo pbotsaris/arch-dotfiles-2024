@@ -1,0 +1,45 @@
+# Pull in the system defaults for locale first:
+include "%L"
+
+#  explicit mappings:
+# Acute mode (trigger: e)
+<Multi_key> <e> <a> : "á" aacute
+<Multi_key> <e> <A> : "Á" Aacute
+<Multi_key> <e> <e> : "é" eacute
+<Multi_key> <e> <E> : "É" Eacute
+<Multi_key> <e> <i> : "í" iacute
+<Multi_key> <e> <I> : "Í" Iacute
+<Multi_key> <e> <o> : "ó" oacute
+<Multi_key> <e> <O> : "Ó" Oacute
+<Multi_key> <e> <u> : "ú" uacute
+<Multi_key> <e> <U> : "Ú" Uacute
+
+# Circumflex mode (trigger: i)
+<Multi_key> <i> <a> : "â" acircumflex
+<Multi_key> <i> <A> : "Â" Acircumflex
+<Multi_key> <i> <e> : "ê" ecircumflex
+<Multi_key> <i> <E> : "Ê" Ecircumflex
+<Multi_key> <i> <i> : "î" icircumflex
+<Multi_key> <i> <I> : "Î" Icircumflex
+<Multi_key> <i> <o> : "ô" ocircumflex
+<Multi_key> <i> <O> : "Ô" Ocircumflex
+<Multi_key> <i> <u> : "û" ucircumflex
+<Multi_key> <i> <U> : "Û" Ucircumflex
+
+# Tilde mode (trigger: n)
+<Multi_key> <n> <a> : "ã" atilde
+<Multi_key> <n> <A> : "Ã" Atilde
+<Multi_key> <n> <o> : "õ" otilde
+<Multi_key> <n> <O> : "Õ" Otilde
+
+# Spanish
+<Multi_key> <n> <n> : "ñ" ntilde
+<Multi_key> <n> <N> : "Ñ" Ntilde
+
+# Cedilla (you already had these)
+<Multi_key> <c> <c> : "ç" ccedilla
+<Multi_key> <c> <C> : "Ç" Ccedilla
+
+<Multi_key> <c> <c> : "ç" ccedilla
+<Multi_key> <c> <C> : "Ç" Ccedilla
+

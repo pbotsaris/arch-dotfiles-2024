@@ -1,4 +1,4 @@
-[[open]]
+[open]
 globs = ["*.zip"]
-run = 'unzip "$1" -d "1%.zip"'
+run = "unzip \"$1\" -d \"${1%.zip}\""
 desc = "Unzip to folder"

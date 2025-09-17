@@ -21,6 +21,8 @@ vim.o.visualbell = false
 vim.o.numberwidth = 4
 vim.o.termguicolors = true
 
+--vim.g.mkdp_command_for_global = 1
+
 vim.o.colorcolumn = "120"
 vim.o.showtabline = 2
 vim.o.signcolumn = "yes"
@@ -47,6 +49,8 @@ vim.o.backupcopy = "yes"
 vim.cmd('au BufWritePre * let &bex = "@" . strftime("%F.%H:%M")')
 vim.o.undodir = vim.env.HOME .. "/.vim/.undo//"
 
+-- Lsp floating boarder
+vim.o.winborder = "rounded"
 
 -- This is a workaround for a bug in treesitter where it doesn't highlight elixir files
 local ts_hl_group = vim.api.nvim_create_augroup("TSHighlightGroup", { clear = true })
