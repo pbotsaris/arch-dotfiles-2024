@@ -277,3 +277,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+setopt extendedglob # for zsh globbing
