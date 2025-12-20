@@ -249,6 +249,8 @@ source /usr/share/nvm/init-nvm.sh
  alias connect-bluetooth="connect-bluetooth.sh"
  alias vim="nvim"
  alias a="cat ~/dotfiles/zsh/.zshrc| grep alias"
+ alias j=z
+
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
