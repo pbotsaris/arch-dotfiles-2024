@@ -1,9 +1,3 @@
-local ok, lspconfig = pcall(require, "lspconfig")
-if not ok then
-   vim.notify("lspconfig not found", vim.log.levels.ERROR)
-   return
-end
-
 local ok, mason = pcall(require, "mason")
 if not ok then
    vim.notify("mason not found", vim.log.levels.ERROR)
@@ -32,8 +26,7 @@ for _, name in ipairs(servers) do
       require("lsp.lsp_setup").get_opts(),
       (has_cfg and cfg) or {}
    )
-   lspconfig[name].setup(opts)
+   vim.lsp.config(name, opts)
 end
 
--- 5) Finally, start null-ls
 require("lsp.null_ls")

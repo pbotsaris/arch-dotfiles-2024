@@ -188,3 +188,4 @@ save_to_clipboard = true
 bindings = [
       { key = "Space", mods = "Control|Alt", action= "ToggleViMode"},
 ]
+

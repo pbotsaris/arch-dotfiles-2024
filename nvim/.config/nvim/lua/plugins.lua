@@ -34,13 +34,6 @@ return packer.startup({
 	function(use)
 		use("wbthomason/packer.nvim")
 
-		--- Navigation using treesitter
-		use({
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			after = "nvim-treesitter",
-			requires = "nvim-treesitter/nvim-treesitter",
-		})
-
 		--  User interface
 		use({ "akinsho/bufferline.nvim", tag = "*", requires = "kyazdani42/nvim-web-devicons" })
 		use({
@@ -112,7 +105,19 @@ return packer.startup({
 		use("folke/which-key.nvim")
 
 		-- syntax & lang server
-		use("nvim-treesitter/nvim-treesitter")
+		use({
+			"nvim-treesitter/nvim-treesitter",
+			branch = "main",
+			run = ":TSUpdate",
+		})
+
+		--- Navigation using treesitter
+		use({
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			branch = "main",
+			after = "nvim-treesitter",
+			requires = "nvim-treesitter/nvim-treesitter",
+		})
 
 		--  utils
 		use("tpope/vim-fugitive")

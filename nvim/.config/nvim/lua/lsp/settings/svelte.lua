@@ -1,3 +1,4 @@
 return {
-  cmd = { "/usr/bin/svelteserver", "--stdio", },
+   cmd = { "svelteserver", "--stdio" },
+   filetype = { "svelte" }
 }
