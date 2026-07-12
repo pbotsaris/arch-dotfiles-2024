@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/pedro/.cache/nvim/packer_hererocks/2.1.1774896198/share/lua/5.1/?.lua;/home/pedro/.cache/nvim/packer_hererocks/2.1.1774896198/share/lua/5.1/?/init.lua;/home/pedro/.cache/nvim/packer_hererocks/2.1.1774896198/lib/luarocks/rocks-5.1/?.lua;/home/pedro/.cache/nvim/packer_hererocks/2.1.1774896198/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/pedro/.cache/nvim/packer_hererocks/2.1.1774896198/lib/lua/5.1/?.so"
+local package_path_str = "/home/pedro/.cache/nvim/packer_hererocks/2.1.1783672735/share/lua/5.1/?.lua;/home/pedro/.cache/nvim/packer_hererocks/2.1.1783672735/share/lua/5.1/?/init.lua;/home/pedro/.cache/nvim/packer_hererocks/2.1.1783672735/lib/luarocks/rocks-5.1/?.lua;/home/pedro/.cache/nvim/packer_hererocks/2.1.1783672735/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/pedro/.cache/nvim/packer_hererocks/2.1.1783672735/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -270,6 +270,13 @@ time([[Sequenced loading]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
+pcall(vim.api.nvim_create_user_command, 'MarkdownPreview', function(cmdargs)
+          require('packer.load')({'markdown-preview.nvim'}, { cmd = 'MarkdownPreview', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+        end,
+        {nargs = '*', range = true, bang = true, complete = function()
+          require('packer.load')({'markdown-preview.nvim'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('MarkdownPreview ', 'cmdline')
+      end})
 pcall(vim.api.nvim_create_user_command, 'MarkdownPreviewToggle', function(cmdargs)
           require('packer.load')({'markdown-preview.nvim'}, { cmd = 'MarkdownPreviewToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
         end,
@@ -283,13 +290,6 @@ pcall(vim.api.nvim_create_user_command, 'MarkdownPreviewStop', function(cmdargs)
         {nargs = '*', range = true, bang = true, complete = function()
           require('packer.load')({'markdown-preview.nvim'}, {}, _G.packer_plugins)
           return vim.fn.getcompletion('MarkdownPreviewStop ', 'cmdline')
-      end})
-pcall(vim.api.nvim_create_user_command, 'MarkdownPreview', function(cmdargs)
-          require('packer.load')({'markdown-preview.nvim'}, { cmd = 'MarkdownPreview', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'markdown-preview.nvim'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('MarkdownPreview ', 'cmdline')
       end})
 time([[Defining lazy-load commands]], false)
 

@@ -161,7 +161,7 @@ _fix_cursor(){
   echo -ne '\e[5 q'
 }
 
-precmd_functions+=(_fix_cursot)
+precmd_functions+=(_fix_cursor)
 
 # VI Mode in zsh copies to clipboard
 
@@ -250,6 +250,8 @@ source /usr/share/nvm/init-nvm.sh
  alias vim="nvim"
  alias a="cat ~/dotfiles/zsh/.zshrc| grep alias"
  alias j=z
+ alias find=fd
+ alias fonts="fc-list : family | sort | uniq"
 
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 

@@ -49,17 +49,9 @@ vim.o.backupcopy = "yes"
 vim.cmd('au BufWritePre * let &bex = "@" . strftime("%F.%H:%M")')
 vim.o.undodir = vim.env.HOME .. "/.vim/.undo//"
 
+-- avoiding issues with fugitive not running :Git status etc..
+vim.g.fugitive_git_executable = 'git'
+
 -- Lsp floating boarder
 vim.o.winborder = "rounded"
-
--- This is a workaround for a bug in treesitter where it doesn't highlight elixir files
-local ts_hl_group = vim.api.nvim_create_augroup("TSHighlightGroup", { clear = true })
-
-vim.api.nvim_create_autocmd("FileType", {
-  group    = ts_hl_group,
-  pattern  = "elixir",
-  callback = function()
-    vim.cmd("TSBufEnable highlight")
-  end,
-})
 

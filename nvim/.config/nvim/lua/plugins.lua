@@ -40,6 +40,7 @@ return packer.startup({
 			"kyazdani42/nvim-tree.lua",
 			"kyazdani42/nvim-web-devicons", -- optional, for file icons
 			requires = {},
+			-- removed nightly seeing issue with fugitive
 			tag = "nightly", -- optional, updated every week.
 		})
 
@@ -80,7 +81,7 @@ return packer.startup({
 		use("averms/black-nvim")
 		use("mhinz/vim-mix-format")
 		use("evanleck/vim-svelte")
-		use("elixir-editors/vim-elixir")
+	   use("elixir-editors/vim-elixir")
 		-- language specific: Dart & Flutter (not using)
 		--   use 'dart-lang/dart-vim-plugin'
 		--   use 'thosakwe/vim-flutter'

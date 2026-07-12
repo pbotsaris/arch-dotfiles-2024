@@ -4,27 +4,13 @@ Host *
    UseKeychain yes
    IdentityFile ~/.ssh/id_rsa
 
-Host labs.antfood.com
-   HostName 206.189.0.154
-   IdentityFile ~/.ssh/id_rsa
-   User pb
-
-
-Host raul.antfood.com
-   HostName 188.166.91.160
-   IdentityFile ~/.ssh/id_rsa
-   User pb
-
    # user: pb / pb@antegration
 Host antegrations.com
-   HostName 188.166.91.160
+   HostName 129.212.180.124
    IdentityFile ~/.ssh/id_rsa
    User pb
-
-Host speak.antfood.com
-   HostName 142.93.244.165
-   IdentityFile ~/.ssh/id_rsa
-   User pb
+   RequestTTY yes
+   RemoteCommand cd ~/antegrations && exec $SHELL -l
 
 Host widgets.antfood.com
    HostName 167.172.226.200

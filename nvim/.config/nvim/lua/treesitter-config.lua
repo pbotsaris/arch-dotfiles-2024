@@ -1,5 +1,6 @@
 -- Install parsers (replaces ensure_installed)
 local installed = require("nvim-treesitter.config").get_installed()
+
 local ensure_installed = {
 	"c",
 	"cpp",
@@ -7,6 +8,8 @@ local ensure_installed = {
 	"lua",
 	"rust",
 	"javascript",
+	"typescript",
+	"tsx",
 	"go",
 	"make",
 	"eex",
@@ -27,14 +30,20 @@ if #to_install > 0 then
 	require("nvim-treesitter").install(to_install)
 end
 
--- Enable treesitter highlighting and indentation via FileType autocmd
+-- Enable treesitter highlighting and indentation via FileType autocmd.
+-- Note: we can't key the autocmd off `ensure_installed` (parser names) because
+-- some filetypes differ from their parser name, e.g. `.jsx` -> filetype
+-- `javascriptreact` -> `javascript` parser, `.tsx` -> `typescriptreact` -> `tsx`.
+-- Resolving the language from the buffer's filetype covers those cases.
 vim.api.nvim_create_autocmd("FileType", {
-	callback = function()
-		if vim.bo.filetype == "svelte" then
+	callback = function(args)
+		local ft = vim.bo[args.buf].filetype
+		local lang = vim.treesitter.language.get_lang(ft) or ft
+		if not vim.tbl_contains(require("nvim-treesitter.config").get_installed(), lang) then
 			return
 		end
-		pcall(vim.treesitter.start)
-		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		vim.treesitter.start(args.buf)
+		vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 	end,
 })
 
