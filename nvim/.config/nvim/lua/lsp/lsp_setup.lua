@@ -31,10 +31,18 @@ M.setup = function()
 	})
 end
 
+M.capabilities = function()
+	local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+	if not ok then
+		return vim.lsp.protocol.make_client_capabilities()
+	end
+
+	return cmp_nvim_lsp.default_capabilities()
+end
+
 M.get_opts = function()
 	return {
-		on_attach = M.on_attach,
-		capabilities = M.capabilities,
+		capabilities = M.capabilities(),
 		flags = { debounce_text_changes = 150 },
 	}
 end

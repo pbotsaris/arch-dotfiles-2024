@@ -281,4 +281,18 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+## Google Cloud
+
+export GOOGLE_CLOUD_PROJECT=airy-timing-512414-q8
+export VERTEX_LOCATION=southamerica-east1
+
 setopt extendedglob # for zsh globbing
+
+# >>> Claude Code Router CLI >>>
+# Added by Claude Code Router. Enables the ccr-app command in new shells.
+case ":$PATH:" in
+  *":$HOME/.claude-code-router/bin:"*) ;;
+  *) export PATH="$HOME/.claude-code-router/bin:$PATH" ;;
+esac
+# <<< Claude Code Router CLI <<<

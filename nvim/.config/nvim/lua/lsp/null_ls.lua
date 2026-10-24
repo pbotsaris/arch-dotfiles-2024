@@ -3,10 +3,7 @@ if not null_ls_status_ok then
    return
 end
 
-local conditional = function(fn)
-   local utils = require("null-ls.utils").make_conditional_utils()
-   return fn(utils)
-end
+local helpers = require("null-ls.helpers")
 
 -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md#formatting
 local formatting = null_ls.builtins.formatting
@@ -18,23 +15,35 @@ local diagnostics = null_ls.builtins.diagnostics
 -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md#completion
 -- local completion = null_ls.builtins.completion
 
+-- credo only runs in projects that depend on it, otherwise mix errors with `task "credo" could not be found`
+local has_credo = function(params)
+   local lock = vim.fs.find("mix.lock", { path = vim.fs.dirname(params.bufname), upward = true })[1]
+   if not lock then
+      return false
+   end
 
+   return vim.iter(vim.fn.readfile(lock)):any(function(line)
+      return line:find('"credo"', 1, true) ~= nil
+   end)
+end
+
+-- elixir formatting comes from the active elixir lsp (expert/dexter), ruby from the rubocop lsp
 local sources = {
    -- formating
-   formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
+   formatting.prettier.with({
+      extra_args = {
+         "--no-semi",
+         "--single-quote",
+         "--jsx-single-quote",
+         "--print-width",
+         "120",
+      },
+   }),
    formatting.black.with({ extra_args = { "--fast" } }),
    -- formatting.isort,
    formatting.clang_format,
    formatting.stylua,
-   formatting.mix,
-   formatting.rubocop,
    formatting.erb_format,
-   formatting.prettier.with({
-      extra_args = {
-         "--print-width", "120",
-      }
-
-   }),
    --require("none-ls.diagnostics.eslint"), -- this requires none-ls-extras to be installed
 
    -- diagnostics
@@ -49,30 +58,13 @@ local sources = {
    diagnostics.erb_lint,
    diagnostics.dotenv_linter,
    -- elixir
-   diagnostics.credo,
+   diagnostics.credo.with({
+      method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+      runtime_condition = helpers.cache.by_bufnr(has_credo),
+   }),
 }
 
 null_ls.setup({
    debug = false,
    sources = sources,
-
-   -- Here we set a conditional to call the rubocop formatter.
-   -- If we have a Gemfile in the project, we call "bundle exec rubocop", if not we only call "rubocop".
-   conditional(function(utils)
-      return utils.root_has_file("Gemfile")
-          and null_ls.builtins.formatting.rubocop.with({
-             command = "bundle",
-             args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.formatting.rubocop._opts.args),
-          })
-          or null_ls.builtins.formatting.rubocop
-   end),
-   -- Same as above, but with diagnostics.rubocop to make sure we use the proper rubocop version for the project
-   conditional(function(utils)
-      return utils.root_has_file("Gemfile")
-          and null_ls.builtins.diagnostics.rubocop.with({
-             command = "bundle",
-             args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.diagnostics.rubocop._opts.args),
-          })
-          or null_ls.builtins.diagnostics.rubocop
-   end),
 })

@@ -34,6 +34,20 @@ return packer.startup({
 	function(use)
 		use("wbthomason/packer.nvim")
 
+      -- mcp server 
+      
+      use {
+    'ravitemer/mcphub.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    -- Installs the Node backend required to manage MCP servers
+    run = 'npm install -g mcp-hub@latest',
+    config = function()
+      require('mcphub').setup({
+        -- Configuration options if needed
+      })
+    end,
+  }
+
 		--  User interface
 		use({ "akinsho/bufferline.nvim", tag = "*", requires = "kyazdani42/nvim-web-devicons" })
 		use({

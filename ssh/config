@@ -14,7 +14,7 @@ Host antegrations.com
 
 Host widgets.antfood.com
    HostName 167.172.226.200
-   IdentityFile ~/.ssh/id_rsa
+   IdentityFile ~/.ssh/digital_ocean
    User pb
 
 Host otherwidget.antfood.com

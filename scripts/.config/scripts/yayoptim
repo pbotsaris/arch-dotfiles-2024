@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Check if yay is installed
+if ! command -v yay &> /dev/null; then
+    echo "Error: yay is not installed."
+    exit 1
+fi
+
+echo "Scanning installed AUR packages for '-bin' equivalents..."
+echo "This might take a moment depending on how many AUR packages you have."
+echo "-------------------------------------------------------------------"
+
+# pacman -Qmq lists all foreign packages (usually AUR) without version numbers
+installed_aur=$(pacman -Qmq)
+found_replacements=()
+
+for pkg in $installed_aur; do
+    # Skip packages that are already binary versions
+    if [[ "$pkg" == *-bin ]]; then
+        continue
+    fi
+
+    bin_pkg="${pkg}-bin"
+
+    # Query yay for the exact info of the -bin package
+    # Discard stdout/stderr, we only care about the exit status (0 = found)
+    if yay -Si "$bin_pkg" &>/dev/null; then
+        echo -e "\e[32m[MATCH]\e[0m Found alternative: \e[1m$pkg\e[0m -> \e[1;36m$bin_pkg\e[0m"
+        found_replacements+=("$bin_pkg")
+    fi
+done
+
+echo "-------------------------------------------------------------------"
+
+if [ ${#found_replacements[@]} -eq 0 ]; then
+    echo "No -bin equivalents found for your current AUR packages."
+else
+    echo "Scan complete. If you want to swap all found packages, you can run:"
+    echo "yay -S ${found_replacements[*]}"
+fi

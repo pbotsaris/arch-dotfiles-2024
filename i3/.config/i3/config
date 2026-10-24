@@ -39,6 +39,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons -columns 3
 bindsym $mod+f exec --no-startup-id rofi -show filebrowser -columns 3
 
+# Flameshot Keybinding
+bindsym $mod+Shift+p exec --no-startup-id flameshot gui
+
 # text-to-speech
 bindsym $mod+Shift+s exec --no-startup-id $HOME/.config/scripts/tts
 
@@ -85,6 +88,7 @@ bindsym $mod+e layout toggle split
 
 # Toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+
 
 # mod click to move floating window
 

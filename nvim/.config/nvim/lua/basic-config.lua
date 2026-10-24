@@ -36,6 +36,9 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 -- copilot work with <tab>
 vim.g.copilot_no_tab_map = true
+-- use the language server bundled with copilot.vim instead of fetching it via
+-- npx on every startup (npx re-downloads it each session -> slow/no completions)
+vim.g.copilot_version = false
 vim.o.expandtab = true
 vim.o.encoding = "UTF-8"
 vim.o.softtabstop = 3
